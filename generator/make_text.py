@@ -13,7 +13,7 @@ import sys
 
 if len(sys.argv) == 2:
     #file_ = open("/Users/riley/jake-and-amir-generator/data/characters/" + sys.argv[1] + ".txt")
-    file_ = open("../../data/characters/" + sys.argv[1] + ".txt")
+    file_ = open("../data/characters/" + sys.argv[1] + ".txt")
     markov = MarkovGenerator.Markov(file_)
     print markov.generate_markov_text(100)
 else:
