@@ -1,7 +1,7 @@
 """
 Grap all scripts from script.jakeandamir.com.
 
-Write them out to the file scripts.txt in the current directory.
+Write them out to the file scripts.txt in the data directory.
 
 Behavior adjustable via command-line arguments (run --help for commands.)
 """
@@ -54,16 +54,17 @@ if __name__ == "__main__":
     # build command-line parser
     parser = argparse.ArgumentParser(description='Extract character lines from master script.')
 
-    # given the --not_to_lower arg, don't convert all text to lower case
-    parser.add_argument('--not_to_lower', help="Don't convert text to lowercase", action='store_false', default=True)
-
     # given the --not_remove_scene_direction, don't remove text b/w parens and brackets
     parser.add_argument('--not_remove_scene_direction', help="Don't remove text b/w parentheses and brackets", action='store_false', default=True)
+
+    # given the --not_lower_case, don't make character names lower case
+    parser.add_argument('--not_lower_case', help="Don't make character names lower case", action='store_false', default=True)
 
     # parse command line arguments
     args = parser.parse_args()
 
-    script_file = open('scripts.txt', 'w')
+    scripts_path = "../../data/scripts.txt"
+    script_file = open(scripts_path, 'w')
 
     all_scripts = 'http://scripts.jakeandamir.com/index.php?search=jake&from-date=&to-date=&do-search=1'
 
@@ -72,17 +73,30 @@ if __name__ == "__main__":
     # use class_ to avoid syntax error on 'class' reserved name
     strained = SoupStrainer('div', class_="episode-script-inner")
     soup = BeautifulSoup(page, parse_only=strained)
-    text = soup.get_text().strip()
 
-    # for script_text in all_text:
-    text = text.encode('ascii', 'ignore')
-    if args.not_to_lower:
-        text = text.lower()
-    if args.not_remove_scene_direction:
-        # remove b/w parens
-        text = remove_scene_direction(text)
+    names_dict = {}
+    for text in soup.strings:
+        text = text.strip()
+        text = text.encode('ascii', 'ignore')
 
-        # remove b/w brackets
-        text = remove_scene_direction(text, to_remove="[{}]")
+        if args.not_remove_scene_direction:
+            # remove text b/w parens
+            text = remove_scene_direction(text)
 
-    script_file.write("%s\n" % text)
+            # remove text b/w brackets
+            text = remove_scene_direction(text, to_remove="[{}]")
+
+        if args.not_lower_case:
+            # :^ option handles whitespace:
+            # can find strings like "Jake:" or " Jake :" etc.
+            search_result = parse.search("{:^}:", text)
+            if search_result:
+                start_end_index = search_result.spans.values()
+                start_index = start_end_index[0][0]
+                end_index = start_end_index[0][1]
+                character_lower_case = text[start_index:end_index].lower()
+                if start_index == 0:
+                    text = character_lower_case + text[end_index:]
+
+        if text:
+            script_file.write(text + "\n")
