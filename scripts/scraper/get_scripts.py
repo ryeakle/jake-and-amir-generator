@@ -66,13 +66,10 @@ if __name__ == "__main__":
     script_file = open('scripts.txt', 'w')
 
     all_scripts = 'http://scripts.jakeandamir.com/index.php?search=jake&from-date=&to-date=&do-search=1'
-    # page = requests.get('http://scripts.jakeandamir.com/index.php?search=Maybe+I+should+IM+him+and+ask+him+if+he+wants+to+switch.+Hey.+%28Jake%27s+computer+makes+an+IM+sound%29&from-date=&to-date=&do-search=1')
-    # tree = html.fromstring(page.text)
-    one_script = 'http://scripts.jakeandamir.com/index.php?search=Maybe+I+should+IM+him+and+ask+him+if+he+wants+to+switch.+Hey.+%28Jake%27s+computer+makes+an+IM+sound%29&from-date=&to-date=&do-search=1'
 
     page = urllib2.urlopen(all_scripts)
 
-    # use class_ to avoid syntax error on reserved name
+    # use class_ to avoid syntax error on 'class' reserved name
     strained = SoupStrainer('div', class_="episode-script-inner")
     soup = BeautifulSoup(page, parse_only=strained)
     text = soup.get_text().strip()
