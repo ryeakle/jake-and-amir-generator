@@ -1,3 +1,6 @@
+Django==1.7
+django-extensions==1.4.4
+djangorestframework==2.4.3
 lxml==3.4.0
 parse==1.6.5
 requests==2.4.3
