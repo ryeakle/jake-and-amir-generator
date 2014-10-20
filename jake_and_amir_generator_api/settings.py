@@ -20,8 +20,7 @@ from generator.MarkovGenerator import file_to_words
 
 character_files = os.listdir(os.path.join(BASE_DIR, CHARACTER_DATA_DIR))
 for character_file in character_files:
-    character_words = file_to_words(os.path.join(CHARACTER_DATA_DIR, character_file))
-
+    character_words = file_to_words(os.path.join(BASE_DIR, CHARACTER_DATA_DIR, character_file))
     # drop the .txt extension to get the character name
     character_name = os.path.splitext(character_file)[0]
 
