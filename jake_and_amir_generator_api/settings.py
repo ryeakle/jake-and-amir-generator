@@ -1,5 +1,5 @@
 """
-Django settings for jake_and_amir_generator_backend project.
+Django settings for jake_and_amir_generator_api project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -31,6 +31,7 @@ for character_file in character_files:
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = "abc"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -61,9 +62,9 @@ REST_FRAMEWORK = {
     )
 }
 
-ROOT_URLCONF = 'jake_and_amir_generator_backend.urls'
+ROOT_URLCONF = 'jake_and_amir_generator_api.urls'
 
-WSGI_APPLICATION = 'jake_and_amir_generator_backend.wsgi.application'
+WSGI_APPLICATION = 'jake_and_amir_generator_api.wsgi.application'
 
 
 # Database
