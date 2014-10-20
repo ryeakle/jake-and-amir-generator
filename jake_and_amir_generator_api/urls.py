@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from jake_and_amir_generator_backend.views import CharacterViewSet
+from jake_and_amir_generator_api.views import CharacterViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
