@@ -48,9 +48,11 @@ INSTALLED_APPS = (
 
     'django_extensions',
     'rest_framework',
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -91,7 +93,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www'
 
+# cross domain requests
+CORS_ORIGIN_WHITELIST = (
+    'push-master.github.io',
+)
+
 # keys to be used in json dictionary responses
 ERROR_KEY = 'error'
 DATA_KEY = 'data'
-
