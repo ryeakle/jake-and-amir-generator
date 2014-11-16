@@ -91,3 +91,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www'
 
+# keys to be used in json dictionary responses
+ERROR_KEY = 'error'
+DATA_KEY = 'data'
+

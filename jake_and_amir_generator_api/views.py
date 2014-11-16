@@ -31,13 +31,13 @@ class CharacterViewSet(viewsets.ViewSet):
         length = int(self.request.QUERY_PARAMS.get('length', 25))
         if length < 2:
             error_string = "If specified, length must be >=2.  Current length is " + str(length) + "."
-            return Response(error_string, status=status.HTTP_400_BAD_REQUEST)
+            return Response({settings.ERROR_KEY: error_string}, status=status.HTTP_400_BAD_REQUEST)
         try:
             character_words = settings.CHARACTER_WORDS[character]
         except:
             error_string = "Invalid character: " + "'" + character + "'"
-            return Response(error_string, status=status.HTTP_400_BAD_REQUEST)
+            return Response({settings.ERROR_KEY: error_string}, status=status.HTTP_400_BAD_REQUEST)
 
         character_markov = Markov(character_words)
         character_text = character_markov.generate_markov_text(length=length)
-        return Response(character_text)
+        return Response({settings.DATA_KEY: character_text})
