@@ -1,3 +1,4 @@
+# Stack Overflow's implementation of a 1st order Markov chain trained on a text file corpus
 import random
 
 def file_to_words(file_path):
