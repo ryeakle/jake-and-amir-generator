@@ -11,10 +11,16 @@
 import MarkovGenerator
 import sys
 
-if len(sys.argv) == 2:
+num_args = len(sys.argv) 
+if (num_args == 2) or (num_args == 3):
     #file_ = open("/Users/riley/jake-and-amir-generator/data/characters/" + sys.argv[1] + ".txt")
     file_ = open("../data/characters/" + sys.argv[1] + ".txt")
-    markov = MarkovGenerator.Markov(file_)
-    print markov.generate_markov_text(100)
+
+    markov = MarkovGenerator.Markov(file_.read().split())
+    if num_args == 2:
+    	print markov.generate_markov_text(100)
+    else:
+    	print markov.generate_markov_text(100, sys.argv[2])
+
 else:
-    print "Usage: make_text.py amir"
+    print "Usage: make_text.py amir <optional seed word>"
